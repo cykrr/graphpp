@@ -7,11 +7,86 @@
       "-Ilib/vkfw/include",
       "-g",
       "-o",
+      "out/glad.o",
+      "src/glad.cpp"
+    ],
+    "directory": "/home/krr/new",
+    "file": "/home/krr/new/src/glad.cpp",
+    "output": "/home/krr/new/out/glad.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Ilib/vkfw/include",
+      "-g",
+      "-o",
+      "out/input.o",
+      "src/input.cpp"
+    ],
+    "directory": "/home/krr/new",
+    "file": "/home/krr/new/src/input.cpp",
+    "output": "/home/krr/new/out/input.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Ilib/vkfw/include",
+      "-g",
+      "-o",
       "out/main.o",
       "src/main.cpp"
     ],
     "directory": "/home/krr/new",
     "file": "/home/krr/new/src/main.cpp",
     "output": "/home/krr/new/out/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Ilib/vkfw/include",
+      "-g",
+      "-o",
+      "out/gui/program.o",
+      "src/gui/program.cpp"
+    ],
+    "directory": "/home/krr/new",
+    "file": "/home/krr/new/src/gui/program.cpp",
+    "output": "/home/krr/new/out/gui/program.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Ilib/vkfw/include",
+      "-g",
+      "-o",
+      "out/gui/util.o",
+      "src/gui/util.cpp"
+    ],
+    "directory": "/home/krr/new",
+    "file": "/home/krr/new/src/gui/util.cpp",
+    "output": "/home/krr/new/out/gui/util.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Ilib/vkfw/include",
+      "-g",
+      "-o",
+      "out/gui/window.o",
+      "src/gui/window.cpp"
+    ],
+    "directory": "/home/krr/new",
+    "file": "/home/krr/new/src/gui/window.cpp",
+    "output": "/home/krr/new/out/gui/window.o"
   }
 ]

@@ -14,7 +14,7 @@ int main()
     hints.openGLProfile = vkfw::OpenGLProfile::eCore;
     hints.contextVersionMajor = 3u;
     hints.contextVersionMinor = 3u;
-    hints.focusOnShow = vkfw::eFalse;
+    hints.focusOnShow = false;
 
     vkfw::UniqueHandle<vkfw::Window> window;
     

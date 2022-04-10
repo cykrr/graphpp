@@ -4,3 +4,5 @@
 out
 new
 lib/vkfw/include/vkfw/libvkfw.so
+.cache/clangd/index
+src/#main.cpp#
