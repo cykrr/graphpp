@@ -1,4 +1,4 @@
-#include "input.hpp"
+#include "gui/input.hpp"
 namespace Input {
     void process(vkfw::UniqueHandle<vkfw::Window> &window) {
         if(window->getKey(vkfw::Key::eQ)) 
