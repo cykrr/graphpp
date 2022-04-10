@@ -5,7 +5,6 @@ SRC += $(wildcard src/*.c)
 SRC +=$(wildcard src/gui/*.cpp)
 INCLUDES=-Iinclude -Ilib/vkfw/include
 OBJS=$(patsubst src/%.cpp, out/%.o, $(SRC))
-OBJS=$(patsubst src/%.c, out/%.o, $(SRC))
 INCLUDE=$(wildcard include/*)
 
 all: folders $(OBJS) $(NAME)
