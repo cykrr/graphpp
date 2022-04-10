@@ -1,0 +1,17 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude",
+      "-Ilib/vkfw/include",
+      "-g",
+      "-o",
+      "out/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/krr/new",
+    "file": "/home/krr/new/src/main.cpp",
+    "output": "/home/krr/new/out/main.o"
+  }
+]
