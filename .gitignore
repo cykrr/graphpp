@@ -6,3 +6,6 @@ new
 lib/vkfw/include/vkfw/libvkfw.so
 .cache/clangd/index
 src/#main.cpp#
+include/glad/#glad.h#
+res/shaders/lightCube.frag~
+res/shaders/lightCube.vert~
