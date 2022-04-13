@@ -7,6 +7,7 @@
 #include "gui/program.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+
 namespace Time {
   float dt, now, then;
 }
@@ -190,10 +191,13 @@ int main()
 					 ((float)Window::width/Window::height),
 					 0.1f, 100.f);
 
-        lightPos = glm::vec3(2 + 8.f * sin(2*Time::now), -0.3f + 6.f*sin(2*Time::now), 2 + 8.f * cos(2*Time::now));
+
+        lightPos = glm::vec3(2 + 8.f * sin(2*Time::now), 
+                -0.3f + 6.f*sin(2*Time::now),
+                2 + 8.f * cos(2*Time::now));
 
         camPos = glm::vec3(4.f * sin(Time::now),
-                0.3f ,
+                1.f,
                 4.f * cos(Time::now));
 
 	lighting.use();
@@ -223,14 +227,13 @@ int main()
 					      camUp
 					));
 	glBindVertexArray(lightCubeVao);
-//	glDrawArrays(GL_TRIANGLES, 0, 36);
-
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+/*
 	for(int i = 1; i < 13; i++)
 	    glDrawArrays(GL_LINES, i, i+1);
 	glDrawArrays(GL_LINES, 14, 15);
+        */
 
-	camPos.y = 0.5;
-//        camPos.y += sin(Time::now);
 
 	
 
