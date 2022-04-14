@@ -59,34 +59,6 @@ int main()
 
    
 
-    // Camera
-
-    /*
-    //// Position & Directions
-    glm::vec4 camPos(1.0f),
-      camFront(1.0f), camUp(1.0f), camRight(1.0f), camWorldUp(1.0f);
-
-    glm::mat4 camProjection(1.0f), camView(1.0f);
-
-    //// Euler Angles
-    float camYaw = -90.0f, camPitch = 0.f;
-
-    //// Options
-    float camSpeed = 2.5f, camSensitivity = 0.1f, camZoom = 45.0f;
-
-    //// Set-Up matrices
-    camProjection =
-      glm::perspective(
-		       glm::radians(45.f), // FOV
-		       ((float)Window::width/Window::height), // Aspect-Ratio
-		       0.1f, 100.f); //zFar, zNear planes
-
-    camView = glm::lookAt(camPos, camPos + camFront, camUp);
-    camPos = glm::vec3(0.f, 0.f, 3.f);
-    camFront = glm::vec3(0.f, 0.f, -1.f);
-    camUp = glm::vec3(0.f, 1.f, 0.f);
-    
-    */
     GLuint VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -198,65 +170,31 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         rotation = glm::rotate(rotation, (float)(Time::dt*glm::radians(45.f)), glm::vec3(1.f, 0.f, 0.f));
-        //printf("%lf\n", Time::now);
 
-        /*
-	camProjection = glm::perspective(glm::radians(45.f),
-					 ((float)Window::width/Window::height),
-
-					 0.1f, 100.f);
-                                         */
         lightPos = glm::vec3(2 + 8.f * sin(2*Time::now), 
                 -0.3f + 6.f*sin(2*Time::now),
                 2 + 8.f * cos(2*Time::now));
-
-        /*
-        camPos = glm::vec3(4.f * sin(Time::now),
-                1.f,
-                4.f * cos(Time::now));
-                */
 
 	lighting.use();
 	lighting.setVec3("objectColor", 1.f, 0.5f, 0.31f);
 	lighting.setVec3("lightColor", 1.f, 1.f, 1.f);
 	lighting.setVec3("lightPos", lightPos);
 
-        /*
-	lighting.setMat4("View", glm::lookAt(
-                                      camera.position,
-                                      glm::vec3(0.f, 0.f, 0.f),
-                                      camera.up
-					));
-                                        */
 	lighting.setMat4("View", camera.view);
         
-        /*
-	lighting.setMat4("Projection", camProjection);
-        */
 	lighting.setMat4("Projection", camera.projection);
 
-        printf("cam pos: %f %f %f:\n", camera.position.x, camera.position.y, camera.position.z);
 	lighting.setMat4("World", glm::mat4(1.0f));
 	lighting.setMat4("Model", glm::mat4(1.0f));
 	glBindVertexArray(lightVao);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
 	lightCube.use();
-        /*
-	lightCube.setMat4("Projection", camProjection);
-        */
-
 
 	lightCube.setMat4("Model", glm::scale(glm::mat4(1.0f), 
                     glm::vec3(0.2f)) *
 	            glm::translate(glm::mat4(1.f), lightPos));
-        /*
-	lightCube.setMat4("View", glm::lookAt(
-					      camPos,
-					      glm::vec3(0.f, 0.f, 0.f),
-					      camUp
-					));
-                                        */
+
         lightCube.setMat4("View", camera.view);
 	glBindVertexArray(lightCubeVao);
         glDrawArrays(GL_TRIANGLES, 0, 36);
