@@ -9,8 +9,8 @@ namespace gl {
 
 namespace Time {
   extern float dt;
-  extern long now;
-  extern long then;
+  extern double now;
+  extern double then;
   void update();
 }
 
