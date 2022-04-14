@@ -7,3 +7,8 @@ namespace Window {
 
   
 }
+
+class Container {
+    Window *window;
+    Camera *camera;
+};
