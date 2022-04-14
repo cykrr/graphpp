@@ -11,7 +11,6 @@
 #include "gui/camera.hpp"
 
 
-
 void onFramebufferResize(
         vkfw::Window const &window,
         size_t width, size_t height
