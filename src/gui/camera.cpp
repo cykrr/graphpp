@@ -4,12 +4,11 @@ Camera::Camera() {
     this->position = glm::vec3(0.f, 0.f, 3.f),
     this->up = glm::vec3(0.f, 1.f, 0.f),
     this->worldUp = this->up,
-    this->updateVectors(),
     this->yaw = -90.f,
     this->pitch = 0.f,
-    this->speed = 2.5f,
-    this->sensitivity=0.1f,
-    this->zoom = 45.f,
+    this->speed = 2.5f;
+    this->sensitivity=0.1f;
+    this->zoom = 45.f;
     this->updateVectors();
 
 
