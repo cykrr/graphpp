@@ -5,6 +5,7 @@
 #include "glad/glad.h"
 #include "vkfw/vkfw.hpp"
 #include "gui/program.hpp"
+
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "gui/camera.hpp"
@@ -57,6 +58,7 @@ int main()
 
     // Camera
 
+    /*
     //// Position & Directions
     glm::vec3 camPos(1.0f),
       camFront(1.0f), camUp(1.0f), camRight(1.0f), camWorldUp(1.0f);
@@ -77,11 +79,11 @@ int main()
 		       0.1f, 100.f); //zFar, zNear planes
 
     camView = glm::lookAt(camPos, camPos + camFront, camUp);
-
     camPos = glm::vec3(0.f, 0.f, 3.f);
     camFront = glm::vec3(0.f, 0.f, -1.f);
     camUp = glm::vec3(0.f, 1.f, 0.f);
     
+    */
     GLuint VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -177,57 +179,76 @@ int main()
     glm::mat4 rotation(1.0f);
 
     gl::clearColorHex("#202020");
+
     // Loop !!
     while(!window->shouldClose()) {
       // Time
-      Time::now = static_cast<float>(vkfw::getTime());
-      Time::dt = Time::now - Time::then;
-      Time::then = Time::now;
+        Time::update();
 
-      Input::process(window);
+        Input::process(window);
+
+        camera.resizeCallback(Window::width, Window::height);
+        camera.look();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         rotation = glm::rotate(rotation, (float)(Time::dt*glm::radians(45.f)), glm::vec3(1.f, 0.f, 0.f));
+        printf("%lf\n", Time::now);
 
+        /*
 	camProjection = glm::perspective(glm::radians(45.f),
 					 ((float)Window::width/Window::height),
+
 					 0.1f, 100.f);
-
-
+                                         */
         lightPos = glm::vec3(2 + 8.f * sin(2*Time::now), 
                 -0.3f + 6.f*sin(2*Time::now),
                 2 + 8.f * cos(2*Time::now));
 
+        /*
         camPos = glm::vec3(4.f * sin(Time::now),
                 1.f,
                 4.f * cos(Time::now));
+                */
 
 	lighting.use();
 	lighting.setVec3("objectColor", 1.f, 0.5f, 0.31f);
 	lighting.setVec3("lightColor", 1.f, 1.f, 1.f);
 	lighting.setVec3("lightPos", lightPos);
+        /*
 	lighting.setMat4("View", glm::lookAt(
                                       camPos,
                                       glm::vec3(0.f, 0.f, 0.f),
                                       camUp
 					));
-
+                                        */
+        lighting.setMat4("View", camera.view);
+        /*
 	lighting.setMat4("Projection", camProjection);
+        */
+
+        lighting.setMat4("Projection", camera.projection);
 	lighting.setMat4("World", glm::mat4(1.0f));
 	lighting.setMat4("Model", glm::mat4(1.0f));
 	glBindVertexArray(lightVao);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
 	lightCube.use();
+        /*
 	lightCube.setMat4("Projection", camProjection);
+        */
+	lightCube.setMat4("Projection", camera.projection);
+
 	lightCube.setMat4("Model", glm::scale(glm::mat4(1.0f), 
                     glm::vec3(0.2f)) *
 	            glm::translate(glm::mat4(1.f), lightPos));
+        /*
 	lightCube.setMat4("View", glm::lookAt(
 					      camPos,
 					      glm::vec3(0.f, 0.f, 0.f),
 					      camUp
 					));
+                                        */
+        lightCube.setMat4("View", camera.view);
 	glBindVertexArray(lightCubeVao);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 /*
@@ -235,10 +256,6 @@ int main()
 	    glDrawArrays(GL_LINES, i, i+1);
 	glDrawArrays(GL_LINES, 14, 15);
         */
-
-
-	
-
         vkfw::pollEvents();
         window->swapBuffers();
     }
