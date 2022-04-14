@@ -7,16 +7,19 @@
 #include "gui/program.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "gui/camera.hpp"
 
-namespace Time {
-  float dt, now, then;
-}
 
-void onFramebufferResize(vkfw::Window const &, size_t width, size_t height);
+
+void onFramebufferResize(
+        vkfw::Window const &window,
+        size_t width, size_t height
+        );
 
 int main()
 {
     
+    Camera camera;
      
   // Window
     auto instance = vkfw::initUnique();
@@ -40,7 +43,6 @@ int main()
     if(!gladLoadGLLoader(
         (GLADloadproc)glfwGetProcAddress)
     ){
-      
         fprintf(stderr, "Error loading GLAD\n");
     }
 
