@@ -29,3 +29,6 @@ namespace Window
         }
     }
 }
+void Container::addProgram(Program *program) {
+    this->programs.push_back(program);
+}

@@ -1,7 +1,10 @@
+#ifndef WINDOW_H
+#define WINDOW_H
 #include "vkfw/vkfw.hpp"
 #include "glm/glm.hpp"
 
 #include "gui/camera.hpp"
+#include "gui/program.hpp"
 #define FIXED_WIDTH 800
 #define FIXED_HEIGHT 600
 namespace Window { 
@@ -12,6 +15,9 @@ namespace Window {
 }
 
 class Container {
-    Window *window;
-    Camera *camera;
+    public:
+        Camera *camera;
+        std::vector<Program *> programs;
+        void addProgram(Program *program);
 };
+#endif

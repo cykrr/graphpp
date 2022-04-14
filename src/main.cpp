@@ -19,7 +19,10 @@ void onFramebufferResize(
 int main()
 {
     
+    Container container;
     Camera camera;
+
+    container.camera = &camera;
      
   // Window
     auto instance = vkfw::initUnique();
@@ -39,6 +42,8 @@ int main()
         printf("Exception: %s", e.what());
     }
     window->makeContextCurrent();
+    window->set<vkfw::InputMode::eCursor>(vkfw::CursorMode::eDisabled);
+    window->setUserPointer(&container);
 
     if(!gladLoadGLLoader(
         (GLADloadproc)glfwGetProcAddress)
@@ -50,8 +55,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     window->callbacks()->on_framebuffer_resize = onFramebufferResize;
-
-    
+    window->callbacks()->on_cursor_move = Input::mouse;
 
    
 
@@ -59,7 +63,7 @@ int main()
 
     /*
     //// Position & Directions
-    glm::vec3 camPos(1.0f),
+    glm::vec4 camPos(1.0f),
       camFront(1.0f), camUp(1.0f), camRight(1.0f), camWorldUp(1.0f);
 
     glm::mat4 camProjection(1.0f), camView(1.0f);
@@ -136,6 +140,8 @@ int main()
     
     // Lighting
     Program lighting("lighting");
+    container.addProgram(&lighting);
+
     GLuint lightVao;
     glm::vec3 lightPos(1.0f);
     glGenVertexArrays(1, &lightVao);
@@ -160,6 +166,8 @@ int main()
 
     // Light Cube 
     Program lightCube("lightCube");
+    container.addProgram(&lightCube);
+
     GLuint lightCubeVao;
     glGenVertexArrays(1, &lightCubeVao);
     glBindVertexArray(lightCubeVao);
@@ -183,15 +191,14 @@ int main()
     while(!window->shouldClose()) {
       // Time
         Time::update();
-
-        Input::process(window);
-
-        camera.resizeCallback(Window::width, Window::height);
         camera.look();
+
+        Input::keyboard(window);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         rotation = glm::rotate(rotation, (float)(Time::dt*glm::radians(45.f)), glm::vec3(1.f, 0.f, 0.f));
-        printf("%lf\n", Time::now);
+        //printf("%lf\n", Time::now);
 
         /*
 	camProjection = glm::perspective(glm::radians(45.f),
@@ -213,19 +220,22 @@ int main()
 	lighting.setVec3("objectColor", 1.f, 0.5f, 0.31f);
 	lighting.setVec3("lightColor", 1.f, 1.f, 1.f);
 	lighting.setVec3("lightPos", lightPos);
+
         /*
 	lighting.setMat4("View", glm::lookAt(
-                                      camPos,
+                                      camera.position,
                                       glm::vec3(0.f, 0.f, 0.f),
-                                      camUp
+                                      camera.up
 					));
                                         */
-        lighting.setMat4("View", camera.view);
+	lighting.setMat4("View", camera.view);
+        
         /*
 	lighting.setMat4("Projection", camProjection);
         */
+	lighting.setMat4("Projection", camera.projection);
 
-        lighting.setMat4("Projection", camera.projection);
+        printf("cam pos: %f %f %f:\n", camera.position.x, camera.position.y, camera.position.z);
 	lighting.setMat4("World", glm::mat4(1.0f));
 	lighting.setMat4("Model", glm::mat4(1.0f));
 	glBindVertexArray(lightVao);
@@ -235,7 +245,7 @@ int main()
         /*
 	lightCube.setMat4("Projection", camProjection);
         */
-	lightCube.setMat4("Projection", camera.projection);
+
 
 	lightCube.setMat4("Model", glm::scale(glm::mat4(1.0f), 
                     glm::vec3(0.2f)) *
@@ -260,9 +270,22 @@ int main()
     }
 }
 
-void onFramebufferResize(vkfw::Window const &, size_t width, size_t height) {
+void onFramebufferResize(vkfw::Window const &window, size_t width, size_t height) {
   printf("Resized framebuffer: %zdx%zd\n", width, height);
-  glViewport(0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
+  Container *container = static_cast<Container *>
+      (window.getUserPointer());
+
+  Camera *camera = container->camera;
+
+  glViewport(0, 0, 
+          static_cast<GLsizei>(width), 
+          static_cast<GLsizei>(height));
+
+  camera->resizeCallback(width, height);
+  for(Program *program : container->programs) {
+        program->setMat4("Projection", camera->projection);
+  }
+
   Window::width = width;
   Window::height = height;
 }

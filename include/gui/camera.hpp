@@ -31,6 +31,7 @@ class Camera {
     void updateVectors(void);
 
     void processInput(Direction dir);
+    void mouse(double x, double y);
 };
 
 #endif

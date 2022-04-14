@@ -64,21 +64,43 @@ void Camera::look(void) {
 }
 
 void Camera::processInput(Direction dir) {
-    this->speed = this->speed * Time::dt;
+    float deltaSpeed = this->speed * Time::dt;
     switch(dir) {
         case(Forward):
-            this->position += this->front * this->speed;
+            this->position += this->front * deltaSpeed;
         break;
         case(Backwards):
+            this->position -= this->front * deltaSpeed;
         break;
         case(Left):
+            this->position-= this->right * deltaSpeed;
         break;
         case(Right):
+            this->position += this->right * deltaSpeed;
         break;
         default:
         break;
         
     }
+    updateVectors();
 }
 
+
+void Camera::mouse(double x, double y) {
+        x *= this->sensitivity;
+        y *= this->sensitivity;
+
+        yaw   += x;
+        pitch += y;
+
+        // make sure that when pitch is out of bounds, screen doesn't get flipped
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
+        // update Front, Right and Up Vectors using the updated Euler angles
+        updateVectors();
+
+}
 
