@@ -12,8 +12,8 @@ namespace gl {
 }
 namespace Time {
     float dt = 0.f;
-    long now = 0.f;
-    long then = 0.f;
+    double now = 0.f;
+    double then = 0.f;
     void update() {
         now = vkfw::getTime();
         dt = now - then; 
