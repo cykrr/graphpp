@@ -1,14 +1,15 @@
 #define VKFW_INCLUDE_GL
-#include "gui/util.hpp"
-#include "gui/window.hpp"
-#include "gui/input.hpp"
 #include "glad/glad.h"
 #include "vkfw/vkfw.hpp"
-#include "gui/program.hpp"
 
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "gui/camera.hpp"
+#include "gui/plane.hpp"
+#include "gui/program.hpp"
+#include "gui/util.hpp"
+#include "gui/window.hpp"
+#include "gui/input.hpp"
 
 
 void onFramebufferResize(
@@ -19,10 +20,6 @@ void onFramebufferResize(
 int main()
 {
     
-    Container container;
-    Camera camera;
-
-    container.camera = &camera;
      
   // Window
     auto instance = vkfw::initUnique();
@@ -42,14 +39,22 @@ int main()
         printf("Exception: %s", e.what());
     }
     window->makeContextCurrent();
+
+    if (!gladLoadGLLoader((GLADloadproc)vkfw::getProcAddress)) {
+        printf("Error initializing glad\n");
+    }
+
     window->set<vkfw::InputMode::eCursor>(vkfw::CursorMode::eDisabled);
+
+    Container container;
+
+    Camera camera;
+    Plane *plane = new Plane();
+    container.camera = &camera;
+
+
     window->setUserPointer(&container);
 
-    if(!gladLoadGLLoader(
-        (GLADloadproc)glfwGetProcAddress)
-    ){
-        fprintf(stderr, "Error loading GLAD\n");
-    }
 
     // IDK needed for light. Global OpenGL State.
     glEnable(GL_DEPTH_TEST);
@@ -174,6 +179,16 @@ int main()
         lightPos = glm::vec3(2 + 8.f * sin(2*Time::now), 
                 -0.3f + 6.f*sin(2*Time::now),
                 2 + 8.f * cos(2*Time::now));
+
+
+
+
+        plane->program->use();
+        plane->program->setMat4("View", camera.view);
+        plane->program->setMat4("Projection", camera.projection);
+        glBindVertexArray(plane->Vao);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
 
 	lighting.use();
 	lighting.setVec3("objectColor", 1.f, 0.5f, 0.31f);
