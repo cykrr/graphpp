@@ -25,6 +25,9 @@ class Camera {
 
     float speed = 2.5f, sensitivity = 0.1f, zoom = 45.0f;
 
+    bool firstTime;
+    float lastX, lastY;
+
     void resizeCallback(int width, int height);
 
     void look(void);

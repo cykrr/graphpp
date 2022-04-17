@@ -1,14 +1,19 @@
+const float near_plane = 0.1f;
+const float far_plane = 100.0f;
 #define VKFW_INCLUDE_GL
+
+#include "gui/camera.hpp"
+#include "gui/window.hpp"
+#include "gui/program.hpp"
+
+
 #include "glad/glad.h"
 #include "vkfw/vkfw.hpp"
 
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "gui/camera.hpp"
 #include "gui/plane.hpp"
-#include "gui/program.hpp"
 #include "gui/util.hpp"
-#include "gui/window.hpp"
 #include "gui/input.hpp"
 
 
@@ -20,29 +25,28 @@ void onFramebufferResize(
 
 int main()
 {
-
-
     // Window
     Container container;
-    mWindow window;
-    Camera camera;
+    mWindow wm;
+    Camera cam;
 
-    container.wm = &window;
-    container.camera = &camera;
+    container.wm = &wm;
+    container.camera = &cam;
 
-    window.window->callbacks()->
+    wm.window->callbacks()->
         on_framebuffer_resize = onFramebufferResize;
 
-    window.window->callbacks()->
+    wm.window->callbacks()->
         on_cursor_move = Input::mouse;
 
-    window.window->set<vkfw::InputMode::eCursor>
+    wm.window->set<vkfw::InputMode::eCursor>
         (vkfw::CursorMode::eDisabled);
 
-    window.window->setUserPointer(&container);
+    wm.window->setUserPointer(&container);
 
 
     Plane *plane = new Plane();
+    container.programs.push_back(plane->program);
 
     /*
        GLuint VBO;
@@ -153,12 +157,12 @@ int main()
     gl::clearColorHex("#202020");
 
     // Loop !!
-    while(!window.window->shouldClose()) {
+    while(!wm.window->shouldClose()) {
         // Time
         Time::update();
-        camera.look();
+        cam.look();
 
-        Input::keyboard(window.window);
+        Input::keyboard(wm.window);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -182,8 +186,7 @@ int main()
            glBufferSubData(GL_ARRAY_BUFFER, 0, 18*sizeof(float), plane->vertices);
            */
         plane->program->use();
-        plane->program->setMat4("View", camera.view);
-        plane->program->setMat4("Projection", camera.projection);
+        plane->program->setMat4("View", cam.view);
 
         plane->draw();
         //        glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -221,7 +224,7 @@ int main()
         glDrawArrays(GL_LINES, 14, 15);
 
 */
-        window.window->swapBuffers();
+        wm.window->swapBuffers();
         vkfw::pollEvents();
     }
 }

@@ -10,6 +10,9 @@ Camera::Camera() {
     this->sensitivity=0.1f;
     this->zoom = 45.f;
     this->updateVectors();
+    this->firstTime = true;
+    this->lastX = 0;
+    this->lastY = 0;
 
 
 }
@@ -55,7 +58,6 @@ void Camera::updateVectors(void) {
 
 void Camera::look(void) {
 
-    this->updateVectors();
 
     this->view = glm::lookAt(
             this->position, 
@@ -87,6 +89,7 @@ void Camera::processInput(Direction dir) {
 
 
 void Camera::mouse(double x, double y) {
+
         x *= this->sensitivity;
         y *= this->sensitivity;
 

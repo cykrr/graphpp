@@ -15,18 +15,24 @@ namespace Input {
             container->camera->processInput(Camera::Direction::Right);
     }
 
-    int Input::Mouse::lastx = 0,
-        Input::Mouse::lasty   = 0,
-        Input::Mouse::xoffset = 0,
+        int Input::Mouse::xoffset = 0,
         Input::Mouse::yoffset = 0;
 
     void mouse(const vkfw::Window &window, double x, double y) {
-        Mouse::xoffset = x - Mouse::lastx;
-        Mouse::yoffset = y - Mouse::lasty;
-        Mouse::lastx = x;
-        Mouse::lasty = y;
-        Container *container = static_cast<Container*>(window.getUserPointer());
-        container->camera->mouse(Mouse::xoffset, -Mouse::yoffset);
+        Camera *camera = static_cast<Container*>(window.getUserPointer())->camera;
+
+
+        if(camera->firstTime) {
+            camera->lastX = x;
+            camera->lastY = y;
+            camera->firstTime = false;
+        }
+
+        Mouse::xoffset = x - camera->lastX;
+        Mouse::yoffset = y - camera->lastY;
+        camera->lastX = x;
+        camera->lastY = y;
+        camera->mouse(Mouse::xoffset, -Mouse::yoffset);
         
     }
 
