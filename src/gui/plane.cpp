@@ -3,9 +3,9 @@
 Plane::Plane(){
     //initialize shaders if we haven't
     if(!this->program) {
-        this->program = new Program("plane");
-        this->program->use();
-        this->program->setMat4("View", glm::mat4(1.f));
+        this->program = new Program("plane"),
+        this->program->use(),
+        this->program->setMat4("View", glm::mat4(1.f)),
         this->program->setMat4("Projection", glm::mat4(1.f));
     }
     // create buffers
