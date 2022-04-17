@@ -79,3 +79,4 @@ Program::Program(std::string name)
     glDeleteShader(vertex);
     glDeleteShader(frag);
 }
+
