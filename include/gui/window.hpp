@@ -14,10 +14,20 @@ namespace Window {
   
 }
 
+
+class mWindow {
+public:
+    mWindow();
+
+    vkfw::UniqueHandle<vkfw::Window> window;
+};
+
 class Container {
     public:
         Camera *camera;
+        mWindow *wm;
         std::vector<Program *> programs;
         void addProgram(Program *program);
 };
+
 #endif
