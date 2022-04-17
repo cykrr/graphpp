@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/cvelth/vkfw.git
 	branch = main
-	commit = 24b0adf43bec9c371f8dfffb7f9afceb7f028e05
-	parent = 47ba5398a683dc7ecedd03138fb0e0448e576e27
+	commit = b53d8d18fce139ebe16587037572bd6848de2b09
+	parent = 4c5262d0f6a6f5fa1710361717f1c4340d651674
 	method = merge
 	cmdver = 0.4.3
