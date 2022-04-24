@@ -8,10 +8,12 @@ Plane::Plane(){
         this->program->setMat4("View", glm::mat4(1.f)),
         this->program->setMat4("Projection", glm::mat4(1.f));
     }
-    this->createBuffers(),
-        this->bindBuffers(),
-        this->allocateVertexData(),
-        this->enableAttribArray();
+    this->vao.create();
+    this->vbo.create();
+    this->vao.bind();
+    this->vbo.bind();
+    this->vbo.allocate(6);
+    this->vao.enable();
 }
 
 // Initialize static member
@@ -51,10 +53,9 @@ void Plane::allocateVertexData() {
 
 void Plane::draw(){
 	this->program->use();
-        this->bindBuffers();
-
-	glBufferSubData(GL_ARRAY_BUFFER, 0, 
-                sizeof(float)*18, vertices);
+        this->vao.bind();
+        this->vbo.bind();
+        this->vbo.update(this->vertices);
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
