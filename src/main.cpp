@@ -47,8 +47,11 @@ int main()
     wm.window->setUserPointer(&container);
 
 
-    Plane *plane = new Plane();
-    container.programs.push_back(plane->program);
+    Plane plane;
+//    Cube cube;
+
+    container.programs.push_back(plane.program);
+//    container.programs.push_back(cube.program);
 
     /*
        GLuint VBO;
@@ -187,10 +190,10 @@ int main()
            plane->program->setMat4("Projection", camera.projection);
            glBufferSubData(GL_ARRAY_BUFFER, 0, 18*sizeof(float), plane->vertices);
            */
-        plane->program->use();
-        plane->program->setMat4("View", cam.view);
+        plane.program->use();
+        plane.program->setMat4("View", cam.view);
 
-        plane->draw();
+        plane.draw();
         //        glDrawArrays(GL_TRIANGLES, 0, 6);
 
         /*
