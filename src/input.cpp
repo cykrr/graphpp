@@ -1,3 +1,5 @@
+#define VKFW_NO_INCLUDE_VULKAN
+#define VKFW_NO_INCLUDE_VULKAN_HPP
 #include "gui/input.hpp"
 namespace Input {
     void keyboard(vkfw::UniqueHandle<vkfw::Window> &window) {

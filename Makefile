@@ -13,7 +13,7 @@ all: folders $(OBJS) $(NAME)
 
 
 $(NAME): $(OBJS) $(INCLUDE)
-	$(CXX) $(INCLUDES) $(OBJS) -o $(NAME) -g -lglfw
+	$(CXX) $(INCLUDES) $(OBJS) -o $(NAME) -g -lglfw -std=c++17
 
 
 out/gui:
