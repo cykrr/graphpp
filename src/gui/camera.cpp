@@ -1,11 +1,13 @@
+#define VKFW_NO_INCLUDE_VULKAN_HPP
+#define VKFW_NO_INCLUDE_VULKAN
 #include "gui/camera.hpp"
 
 Camera::Camera() {
-    this->position = glm::vec3(0.f, 0.f, 3.f),
+    this->position = glm::vec3(0.f, 1.f, 3.f),
     this->up = glm::vec3(0.f, 1.f, 0.f),
     this->worldUp = this->up,
     this->yaw = -90.f,
-    this->pitch = 0.f,
+    this->pitch = -20.f,
     this->speed = 2.5f;
     this->sensitivity=0.1f;
     this->zoom = 45.f;
