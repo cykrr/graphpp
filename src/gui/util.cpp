@@ -1,3 +1,5 @@
+#define VKFW_NO_INCLUDE_VULKAN_HPP
+#define VKFW_NO_INCLUDE_VULKAN
 #include "gui/util.hpp"
 namespace gl {
     void clearColorHex(std::string fmt)

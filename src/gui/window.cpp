@@ -1,3 +1,5 @@
+#define VKFW_NO_INCLUDE_VULKAN_HPP
+#define VKFW_NO_INCLUDE_VULKAN
 #include "gui/window.hpp"
 namespace Window
 { 

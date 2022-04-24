@@ -1,6 +1,8 @@
-const float near_plane = 0.1f;
+
 const float far_plane = 100.0f;
 #define VKFW_INCLUDE_GL
+#define VKFW_NO_INCLUDE_VULKAN_HPP
+#define VKFW_NO_INCLUDE_VULKAN
 
 #include "gui/camera.hpp"
 #include "gui/window.hpp"
