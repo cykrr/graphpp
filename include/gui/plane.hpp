@@ -1,6 +1,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 #include "gui/program.hpp"
+#include "gui/vertex_array.hpp"
 class Plane {
 public:
     Plane();
@@ -11,6 +12,8 @@ public:
     // we can't use the cube bc they use different vertices!
     // well we "can" but let's first use this plane..
     unsigned int Vao, Vbo;
+    VertexArray vao;
+    VertexBuffer vbo;
     static Program *program;
 private:
 
