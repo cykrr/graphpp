@@ -54,7 +54,7 @@ int main()
        glBindBuffer(GL_ARRAY_BUFFER, VBO);
        */
 
-    /*
+
        float vertices[] = {
        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -103,7 +103,7 @@ int main()
 
        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-*/
+
 
     // Lighting
     /*

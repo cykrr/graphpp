@@ -62,4 +62,5 @@ mWindow::mWindow() {
     if (!gladLoadGLLoader((GLADloadproc)vkfw::getProcAddress)) {
         printf("Error initializing glad\n");
     }
+    glEnable(GL_DEPTH_TEST);
 }

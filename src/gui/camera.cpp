@@ -25,7 +25,7 @@ void Camera::resizeCallback(int width, int height)
     this->projection = glm::perspective(
             glm::radians(this->zoom), // Field of View
             (float)width/height,  // Aspect Ratio
-            0.1f, 100.f); // zFar. zNear planes.
+            0.1f, 500.f); // zFar. zNear planes.
 }
 
 void Camera::updateVectors(void) {
@@ -89,6 +89,7 @@ void Camera::processInput(Direction dir) {
 
 
 void Camera::mouse(double x, double y) {
+        
 
         x *= this->sensitivity;
         y *= this->sensitivity;

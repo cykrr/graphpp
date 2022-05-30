@@ -16,7 +16,8 @@ namespace Input {
     }
 
         int Input::Mouse::xoffset = 0,
-        Input::Mouse::yoffset = 0;
+        Input::Mouse::yoffset = 0; //this vars are not reutilized 
+        // so they shouldn't be part of the class
 
     void mouse(const vkfw::Window &window, double x, double y) {
         Camera *camera = static_cast<Container*>(window.getUserPointer())->camera;
